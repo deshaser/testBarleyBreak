@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getMatrixAction, changeMatrixPositionAction } from '../../actions/matrixAction'
+import { getMatrixAction, changeMatrixPositionAction, backMatrixAction } from '../../actions/matrixAction'
 import './area.css';
 import './button.css';
 
@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getMatrixAction: () => dispatch(getMatrixAction()),
   changeMatrixPositionAction: (data, i, j) => dispatch(changeMatrixPositionAction(data, i, j)),
+  backMatrixAction: (data) => dispatch(backMatrixAction(data)),
 });
 
 
@@ -32,6 +33,13 @@ class Area extends Component {
 
     return (
       <div className='game'>
+        <div
+          className={ 'game__back-btn ' + (this.props.matrix.history.length ? '' : 'hide') }
+          onClick={ () => { this.handleBack() } }
+        >
+          <span>&lt;</span>
+          Back
+        </div>
         <div className="area">
           { matrix.map((row, i) => (
             <div key={ i } className='area__row'>
@@ -49,7 +57,9 @@ class Area extends Component {
             </div>
           )) }
         </div>
-        <button className="md-btn" onClick={ () => { this.handleReset() } }>RESET</button>
+        <div className='center'>
+          <button className="md-btn" onClick={ () => { this.handleReset() } }>RESET</button>
+        </div>
       </div>
     );
   }
@@ -60,6 +70,10 @@ class Area extends Component {
 
   handleReset() {
     this.props.getMatrixAction();
+  }
+
+  handleBack() {
+    this.props.backMatrixAction(this.props.matrix);
   }
 
 }

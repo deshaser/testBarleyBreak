@@ -1,15 +1,48 @@
-.game {
-  width: 500px;
-  margin: 0 auto;
+.center {
   text-align: center;
+}
+.hide {
+  opacity: 0;
+}
+
+.game {
+  width: 322px;
+  margin: 10vh auto 0;
+
+  &__back-btn {
+    margin: 5px;
+    display: inline-block;
+    text-align: left;
+    cursor: pointer;
+    color: #616161;
+
+    &:hover {
+      color: #424242;
+    }
+
+    &::selection {
+      background: transparent;
+    }
+
+    & span {
+      display: inline-block;
+      font-size: 10px;
+      vertical-align: top;
+      margin: 2px 5px 0 0;
+
+      &::selection {
+        background: transparent;
+      }
+    }
+  }
 }
 
 .area {
   width: 320px;
   height: 320px;
   padding: 1px;
-  background: #EFEBE9;
-  margin: 50px auto;
+  background: #E0E0E0;
+  margin: 0 auto 50px;
 
   &__row {
     display: flex;
@@ -24,6 +57,12 @@
     &.has-value {
       div {
         background: #ffffff;
+
+        &:hover {
+          color: #2196f3;
+          box-shadow: 0 0 3px 0 #BDBDBD;
+
+        }
       }
     }
 
@@ -37,7 +76,7 @@
       font-family: monospace;
       justify-content: center;
       align-items: center;
-      color: #212121;
+      color: #616161;
     }
   }
 }

@@ -10,6 +10,11 @@ export default (state = {}, action) => {
         ...state,
         matrix: action.payload
       };
+    case 'BACK_MATRIX_ACTION':
+      return {
+        ...state,
+        matrix: action.payload
+      };
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import { getMatrix, changeCellPosition } from '../utils/matrixUtils'
+import { getMatrix, changeCellPosition, backState } from '../utils/matrixUtils'
 
 export const getMatrixAction = () => dispatch => {
   dispatch({
@@ -12,6 +12,16 @@ export const changeMatrixPositionAction = (data, i, j) => dispatch => {
   if (matrix) {
     dispatch({
       type: 'CHANGE_MATRIX_ACTION',
+      payload: matrix
+    });
+  }
+};
+
+export const backMatrixAction = (data) => dispatch => {
+  let matrix = backState(data);
+  if (matrix) {
+    dispatch({
+      type: 'BACK_MATRIX_ACTION',
       payload: matrix
     });
   }

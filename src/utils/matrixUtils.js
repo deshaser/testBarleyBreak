@@ -1,6 +1,7 @@
 export const getMatrix = () => {
   let matrix = [];
   let blankPosition = [];
+  let history = [];
   let values = (new Array(15)).fill(1).map((a, i) => i + 1);
   values.push('');
   values = shuffle(values);
@@ -16,7 +17,7 @@ export const getMatrix = () => {
     matrix.push(row);
   }
 
-  return { matrix, blankPosition };
+  return { matrix, blankPosition, history };
 
   function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -41,18 +42,29 @@ const canMove = (blankPosition, i, j) => {
   return false;
 };
 
-export const changeCellPosition = (data, i, j) => {
+export const changeCellPosition = (data, i, j, isBack) => {
   let matrix = data.matrix;
   let blankPosition = data.blankPosition;
+  let history = data.history;
 
   // exit if can not apply
-  if (!canMove(data.blankPosition, i, j)) {
+  if (!isBack && !canMove(data.blankPosition, i, j)) {
     return false;
+  }
+  if (!isBack) {
+    history.push(blankPosition);
   }
 
   let value = matrix[i][j];
   matrix[i][j] = '';
   matrix[blankPosition[0]][blankPosition[1]] = value;
   blankPosition = [i, j];
-  return({ matrix, blankPosition });
-}
+  return({ matrix, blankPosition, history });
+};
+
+export const backState = (data) => {
+  if (data.history.length) {
+    let [i, j] = data.history.pop();
+    return changeCellPosition(data, i, j, true);
+  }
+};
