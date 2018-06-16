@@ -1,24 +1,37 @@
 .area {
   width: 320px;
   height: 320px;
-  background: #efefef;
+  padding: 1px;
+  background: #EFEBE9;
   margin: 50px auto;
+
+  &__row {
+    display: flex;
+  }
 
   &__cell {
     width: 80px;
     height: 80px;
     display: inline-block;
-    box-sizing: border-box;
-    border: 1px solid black;
+    cursor: pointer;
 
-    &.value {
-      background: #ebffee;
+    &.has-value {
+      div {
+        background: #ffffff;
+      }
     }
 
-    span {
-      padding: 13px;
-      display: block;
+    div {
+      margin: 1px;
+      height: 78px;
+      width: 78px;
+      display: flex;
+      border-radius: 3px;
       font-size: 32px;
+      font-family: monospace;
+      justify-content: center;
+      align-items: center;
+      color: #212121;
     }
   }
 }

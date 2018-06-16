@@ -75,16 +75,16 @@ class Area extends Component {
       <div className="area">
 
         { matrix.map((row, i) => (
-          <div key={ i }>
+          <div key={ i } className='area__row'>
             { row.map((cell, j) => (
               <div
                 key={ j }
-                className={ 'area__cell ' + (cell ? 'value' : '') }
-                onClick={ () => { this.handleCellClick(i, j); } }>
-                <span>
-                  { cell || '.' }
-                  {/*{ i + ',' + j }*/}
-                </span>
+                className={ 'area__cell ' + (cell ? 'has-value' : '') }
+                onClick={ () => { this.handleCellClick(i, j); } }
+              >
+                <div>
+                  { cell }
+                </div>
               </div>
             )) }
           </div>
