@@ -1,6 +1,20 @@
 .area {
-  width: 200px;
-  height: 200px;
+  width: 320px;
+  height: 320px;
   background: #efefef;
   margin: 50px auto;
+
+  &__cell {
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid black;
+
+    span {
+      padding: 13px;
+      display: block;
+      font-size: 32px;
+    }
+  }
 }
