@@ -34,7 +34,7 @@ class Area extends Component {
     return (
       <div className='game'>
         <div
-          className={ 'game__back-btn ' + (this.props.matrix.history.length ? '' : 'hide') }
+          className={ 'game__back-btn ' + (this.props.matrix.history && this.props.matrix.history.length ? '' : 'hide') }
           onClick={ () => { this.handleBack() } }
         >
           <span>&lt;</span>
