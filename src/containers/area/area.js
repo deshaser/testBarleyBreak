@@ -33,7 +33,13 @@ class Area extends Component {
 
     return (
       <div className='game'>
-        <button className="md-btn" onClick={ () => { this.handleBack() } }>Back</button>
+        <div
+          className={ 'game__back-btn ' + (this.props.matrix.history.length ? '' : 'hide') }
+          onClick={ () => { this.handleBack() } }
+        >
+          <span>&lt;</span>
+          Back
+        </div>
         <div className="area">
           { matrix.map((row, i) => (
             <div key={ i } className='area__row'>
@@ -51,7 +57,9 @@ class Area extends Component {
             </div>
           )) }
         </div>
-        <button className="md-btn" onClick={ () => { this.handleReset() } }>RESET</button>
+        <div className='center'>
+          <button className="md-btn" onClick={ () => { this.handleReset() } }>RESET</button>
+        </div>
       </div>
     );
   }
