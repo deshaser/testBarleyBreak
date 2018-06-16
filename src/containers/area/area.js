@@ -41,17 +41,25 @@ class Area extends Component {
 
   changeCellPosition(i, j) {
     // exit if can not apply
-    if (!this.checkCellPosition(i, j)) {
+    if (!this.canMove(i, j)) {
       return;
     }
-    this.setState({ matrix: this.getMatrix() });
+
+    let matrix = this.state.matrix;
+    let blankPosition = this.state.blankPosition;
+    let value = matrix[i][j];
+    matrix[i][j] = '';
+    matrix[blankPosition[0]][blankPosition[1]] = value;
+    blankPosition = [i, j];
+    this.setState({ matrix, blankPosition });
   }
 
-  checkCellPosition(i, j) {
+  canMove(i, j) {
     let [blankI, blankJ] = this.state.blankPosition;
     if (blankI === i && blankJ === j) {
       return false;
-    } else if (blankI === i && (blankJ === j+1 || blankJ === j-1)) {
+    }
+    else if (blankI === i && (blankJ === j+1 || blankJ === j-1)) {
       return true;
     }
     else if ((blankI === i+1 || blankI === i-1) && blankJ === j) {
