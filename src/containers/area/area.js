@@ -19,7 +19,9 @@ const mapDispatchToProps = dispatch => ({
 class Area extends Component {
 
   componentDidMount() {
-    this.props.getMatrixAction();
+    if (!this.props.matrix) {
+      this.props.getMatrixAction();
+    }
   }
 
   render() {
