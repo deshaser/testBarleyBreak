@@ -4,6 +4,11 @@ import './area.css';
 
 
 class Area extends Component {
+  state = {
+    matrix: this.getMatrix(),
+    blankPosition: []
+  };
+
   getMatrix() {
     let matrix = [];
     let values = (new Array(15)).fill(1).map((a, i) => i + 1);
@@ -13,6 +18,11 @@ class Area extends Component {
     for (let i = 0; i < 4; i++) {
       let row = [];
       for (let j = 0; j < 4; j++) {
+        if (!values[0]) {
+          setTimeout(() => {
+            this.setState({ blankPosition: [i, j] });
+          }, 0)
+        }
         row.push(values.shift());
       }
       matrix.push(row);
@@ -29,18 +39,43 @@ class Area extends Component {
     }
   }
 
+  changeCellPosition(i, j) {
+    // exit if can not apply
+    if (!this.checkCellPosition(i, j)) {
+      return;
+    }
+    this.setState({ matrix: this.getMatrix() });
+  }
+
+  checkCellPosition(i, j) {
+    let [blankI, blankJ] = this.state.blankPosition;
+    if (blankI === i && blankJ === j) {
+      return false;
+    } else if (blankI === i && (blankJ === j+1 || blankJ === j-1)) {
+      return true;
+    }
+    else if ((blankI === i+1 || blankI === i-1) && blankJ === j) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
-    let matrix = this.getMatrix();
+    let matrix = this.state.matrix;
 
     return (
       <div className="area">
 
-        { matrix.map(row => (
-          <div>
-            { row.map(cell => (
-              <div className='area__cell'>
+        { matrix.map((row, i) => (
+          <div key={ i }>
+            { row.map((cell, j) => (
+              <div
+                key={ j }
+                className={ 'area__cell ' + (cell ? 'value' : '') }
+                onClick={ () => { this.handleCellClick(i, j); } }>
                 <span>
                   { cell || '.' }
+                  {/*{ i + ',' + j }*/}
                 </span>
               </div>
             )) }
@@ -48,6 +83,10 @@ class Area extends Component {
         )) }
       </div>
     );
+  }
+
+  handleCellClick(i, j) {
+    this.changeCellPosition(i, j);
   }
 }
 
