@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { getMatrixAction, changeMatrixPositionAction } from '../../actions/matrixAction'
 import './area.css';
+import './button.css';
 
 
 const mapStateToProps = state => ({
@@ -28,28 +29,35 @@ class Area extends Component {
     let matrix = this.props.matrix.matrix;
 
     return (
-      <div className="area">
-        { matrix.map((row, i) => (
-          <div key={ i } className='area__row'>
-            { row.map((cell, j) => (
-              <div
-                key={ j }
-                className={ 'area__cell ' + (cell ? 'has-value' : '') }
-                onClick={ () => { this.handleCellClick(i, j); } }
-              >
-                <div>
-                  { cell }
+      <div className='game'>
+        <div className="area">
+          { matrix.map((row, i) => (
+            <div key={ i } className='area__row'>
+              { row.map((cell, j) => (
+                <div
+                  key={ j }
+                  className={ 'area__cell ' + (cell ? 'has-value' : '') }
+                  onClick={ () => { this.handleCellClick(i, j); } }
+                >
+                  <div>
+                    { cell }
+                  </div>
                 </div>
-              </div>
-            )) }
-          </div>
-        )) }
+              )) }
+            </div>
+          )) }
+        </div>
+        <button className="md-btn" onClick={ () => { this.handleReset() } }>RESET</button>
       </div>
     );
   }
 
   handleCellClick(i, j) {
     this.props.changeMatrixPositionAction(this.props.matrix, i, j);
+  }
+
+  handleReset() {
+    this.props.getMatrixAction();
   }
 
 }
