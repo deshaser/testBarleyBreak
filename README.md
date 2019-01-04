@@ -1,3 +1,5 @@
+# Barley Break
+
 This project is a test task for recruitment.
 
 It was necessary to develop a web version of the game Barley Break using React
